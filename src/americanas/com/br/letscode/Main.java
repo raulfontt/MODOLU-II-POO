@@ -98,7 +98,6 @@ public class Main {
                     }else if (opcaoEscolhida == 5){
                         crudJogos.listarJogos();
                         crudJogos.vendaJogos(listaDeJogos, dinheiroEmCaixaDaEmpresa);
-
                     }else if (opcaoEscolhida == 6){
                         valida = false;
                     }else
