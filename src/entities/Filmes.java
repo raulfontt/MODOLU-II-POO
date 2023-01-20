@@ -4,7 +4,6 @@ public class Filmes extends ProdutosLoja{
     private String estudio;
     private String diretores;
     private String genero;
-    private String produtores;
 
     public Filmes(){
     }
@@ -13,19 +12,17 @@ public class Filmes extends ProdutosLoja{
         super(id, nome, preco);
     }
 
-    public Filmes(Integer id, String nome, double preco, String estudio, String diretores, String genero, String produtores) {
+    public Filmes(Integer id, String nome, double preco, String estudio, String diretores, String genero) {
         super(id, nome, preco);
         this.estudio = estudio;
         this.diretores = diretores;
         this.genero = genero;
-        this.produtores = produtores;
     }
 
     public Filmes(String estudio, String diretores, String genero, String produtores) {
         this.estudio = estudio;
         this.diretores = diretores;
         this.genero = genero;
-        this.produtores = produtores;
     }
 
     public String getEstudio() {
@@ -52,11 +49,5 @@ public class Filmes extends ProdutosLoja{
         this.genero = genero;
     }
 
-    public String getProdutores() {
-        return produtores;
-    }
 
-    public void setProdutores(String produtores) {
-        this.produtores = produtores;
-    }
 }

@@ -1,9 +1,6 @@
 package americanas.com.br.letscode;
 
-import entities.CrudJogos;
-import entities.CrudLivros;
-import entities.Jogos;
-import entities.Livros;
+import entities.*;
 
 import java.util.Scanner;
 
@@ -36,6 +33,9 @@ public class Main {
 
         Jogos listaDeJogos = new Jogos();
         CrudJogos crudJogos = new CrudJogos();
+
+        Filmes listaDeFilmes = new Filmes();
+        CrudFilmes crudFilmes = new CrudFilmes();
 
         //Valor no estoque
         double dinheiroEmCaixaDaEmpresa = 1000.00;
@@ -105,7 +105,18 @@ public class Main {
                 }while (valida);
 
             }else if (opcaoEscolhida == 3) {
+                //Menu de Filmes com o CRUD
                 do{
+                    opcaoEscolhida = crudFilmes.menuDeFilmes(opcaoEscolhida);
+
+                    if (opcaoEscolhida == 1){
+                        if (crudFilmes.getListaDeFilmes().isEmpty()){
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um livro!");
+                        }else {
+                            crudFilmes.listarFilmes();
+                        }
+                    }
+
 
 
                 }while (valida);
