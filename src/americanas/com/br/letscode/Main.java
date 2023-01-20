@@ -1,0 +1,135 @@
+package americanas.com.br.letscode;
+
+import entities.CrudJogos;
+import entities.CrudLivros;
+import entities.Jogos;
+import entities.Livros;
+
+import java.util.Scanner;
+
+public class Main {
+
+    static int opcaoEscolhida = 0; //Variável que sempre irá chamar o Menu
+    public static Integer contID = 0;
+
+    public static int menuPrincipal(int numEscolhido){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Bem-vindo a Americanas Story.");
+        System.out.println("Selecione uma opção: ");
+        System.out.println("01. Menu de Livros");
+        System.out.println("02. Menu de Jogos");
+        System.out.println("03. Menu de Filmes");
+        System.out.println("04. Menu de Albúns de Música");
+        System.out.println("05. Menu de Brinquedos");
+        System.out.println("06. Sair");
+        return numEscolhido = sc.nextInt();
+    }
+
+    public static void main(String[] args) {
+        // Variável para receber dados:
+        Scanner sc = new Scanner(System.in);
+        boolean valida = true;
+
+        //Declaração das classes
+        Livros livrosStore = new Livros();
+        CrudLivros crudLivros = new CrudLivros();
+
+        Jogos listaDeJogos = new Jogos();
+        CrudJogos crudJogos = new CrudJogos();
+
+        //Valor no estoque
+        double dinheiroEmCaixaDaEmpresa = 1000.00;
+
+        do{
+            //Menu Principal
+            opcaoEscolhida = menuPrincipal(opcaoEscolhida);
+
+            if(opcaoEscolhida == 1){//Menu de Livros com o CrudLivros
+
+                do{ //Opções do Menu de Jogos
+                    opcaoEscolhida = crudLivros.menuDeLivros(opcaoEscolhida);
+                    if (opcaoEscolhida == 1){
+                        if (crudLivros.getListaDeLivros().isEmpty()){
+                            System.out.println("Não tenho livros cadastrados. Por favor cadastre um livro!");
+                        }else {
+                            crudLivros.listarLivros();
+                        }
+                    }else if (opcaoEscolhida == 2){
+                        livrosStore = crudLivros.cadastrarLivro(sc,contID);
+                        contID++;
+                        crudLivros.adicionarLivros(livrosStore);
+                    } else if (opcaoEscolhida == 3){
+                        crudLivros.alterarLivros(livrosStore);
+
+                    }else if (opcaoEscolhida == 4) {
+                        crudLivros.removerLivros(livrosStore);
+
+                    }else if (opcaoEscolhida == 5){
+                        crudLivros.listarLivros();
+                        crudLivros.vendaLivros(livrosStore, dinheiroEmCaixaDaEmpresa);
+                    }else if(opcaoEscolhida == 6){
+                        valida = false;
+                    }else{
+                        System.out.println("Digite um valor válido");
+                    }
+                }while(valida);
+
+                //Menu de Jogos com o CRUD
+            }else if (opcaoEscolhida == 2) {
+                do{
+                    opcaoEscolhida = crudJogos.menuDeJogos(opcaoEscolhida);
+                    if (opcaoEscolhida == 1){
+                        if (crudJogos.getListaDeJogos().isEmpty()){
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um livro!");
+                        }else {
+                            crudJogos.listarJogos();
+                        }
+
+                    }else if (opcaoEscolhida == 2){
+                        listaDeJogos = crudJogos.cadastrarJogo(sc, contID);
+                        contID++;
+                        crudJogos.adicionarJogos(listaDeJogos);
+                    }else if (opcaoEscolhida == 3){
+                        crudJogos.alterarJogos(listaDeJogos);
+
+                    }else if (opcaoEscolhida == 4){
+                        crudJogos.removerJogos(listaDeJogos);
+
+                    }else if (opcaoEscolhida == 5){
+                        crudJogos.listarJogos();
+                        crudJogos.vendaJogos(listaDeJogos, dinheiroEmCaixaDaEmpresa);
+
+                    }else if (opcaoEscolhida == 6){
+                        valida = false;
+                    }else
+                        System.out.println("Digite um valor válido!");
+                }while (valida);
+
+            }else if (opcaoEscolhida == 3) {
+                do{
+
+
+                }while (valida);
+
+            }else if (opcaoEscolhida == 4) {
+                do{
+
+                }while (valida);
+
+            }else if (opcaoEscolhida == 5) {
+                do{
+
+                }while (valida);
+            }else if(opcaoEscolhida == 6){
+                valida = false;
+            }else
+                System.out.println("Digite uma das opções do Menu!");
+
+        }while(valida);
+
+        System.out.println("Obrigado por nos visitar. Volte sempre!");
+
+        sc.close();
+        }
+
+}
