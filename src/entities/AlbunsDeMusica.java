@@ -1,33 +1,29 @@
 package entities;
 
 public class AlbunsDeMusica extends ProdutosLoja{
-    private String musicaNome;
+    private String musicosBanda;
     private String generoMusica;
 
     public AlbunsDeMusica(){
     }
 
-    public AlbunsDeMusica(String nome, int id, double preco) {
+    public AlbunsDeMusica(Integer id, String nome, double preco, String musicosBanda, String generoMusica) {
         super(id, nome, preco);
-    }
-
-    public AlbunsDeMusica(Integer id, String nome, double preco, String musicaNome, String generoMusica) {
-        super(id, nome, preco);
-        this.musicaNome = musicaNome;
+        this.musicosBanda = musicosBanda;
         this.generoMusica = generoMusica;
     }
 
-    public AlbunsDeMusica(String musicaNome, String generoMusica) {
-        this.musicaNome = musicaNome;
+    public AlbunsDeMusica(String musicosBanda, String generoMusica) {
+        this.musicosBanda = musicosBanda;
         this.generoMusica = generoMusica;
     }
 
-    public String getMusicaNome() {
-        return musicaNome;
+    public String getMusicosBanda() {
+        return musicosBanda;
     }
 
-    public void setMusicaNome(String musicaNome) {
-        this.musicaNome = musicaNome;
+    public void setMusicosBanda(String musicosBanda) {
+        this.musicosBanda = musicosBanda;
     }
 
     public String getGeneroMusica() {

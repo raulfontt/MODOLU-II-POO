@@ -38,8 +38,11 @@ public class Main {
         Filmes listaDeFilmes = new Filmes();
         CrudFilmes crudFilmes = new CrudFilmes();
 
-        AlbunsDeMusica albunsDeMusica = new AlbunsDeMusica();
+        AlbunsDeMusica listaAlbumDeMusicas = new AlbunsDeMusica();
         CrudAlbunsDeMusica crudAlbunsDeMusica = new CrudAlbunsDeMusica();
+
+        Brinquedos listaBrinquedos = new Brinquedos();
+        CrudBrinquedos crudBrinquedos = new CrudBrinquedos();
 
         //Valor no estoque
         double dinheiroEmCaixaDaEmpresa = 1000.00;
@@ -174,7 +177,7 @@ public class Main {
 
                     }else if (opcaoEscolhida == 5){
                         if (crudFilmes.getListaDeFilmes().isEmpty()){
-                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um jogo!");
+                            System.out.println("Não tenho filmes cadastrados. Por favor cadastre um filme!");
                         }else {
                             crudFilmes.listarFilmes();
                             dinheiroEmCaixaDaEmpresa = crudFilmes.vendaFilmes(listaDeFilmes, dinheiroEmCaixaDaEmpresa);
@@ -190,22 +193,86 @@ public class Main {
 
             }else if (opcaoEscolhida == 4) {
                 //Menu de opções do Albúns de Músicas com CRUD
-                opcaoEscolhida = crudAlbunsDeMusica.menuDeMusicas(opcaoEscolhida);
                 do{
+                    opcaoEscolhida = crudAlbunsDeMusica.menuDeMusicas(opcaoEscolhida);
                     if (opcaoEscolhida == 1){
+                        if (crudAlbunsDeMusica.getListaDeMusicas().isEmpty()){
+                            System.out.println("Não tenho musicas cadastradas. Por favor cadastre uma música!");
+                        }else {
+                            crudAlbunsDeMusica.listarMusicas();
+                        }
 
                     }else if (opcaoEscolhida == 2){
+                        listaAlbumDeMusicas = crudAlbunsDeMusica.cadastrarMusicas(sc, contID);
+                        contID++;
+                        crudAlbunsDeMusica.adicionarMusicas(listaAlbumDeMusicas);
+                    }else if (opcaoEscolhida == 3){
+                        if (crudAlbunsDeMusica.getListaDeMusicas().isEmpty()){
+                            System.out.println("Não tenho musicas cadastradas. Por favor cadastre uma música!");
+                        }else {
+                            crudAlbunsDeMusica.listarMusicas();
+                            crudAlbunsDeMusica.alterarAlbumDeMusicas(listaAlbumDeMusicas);
+                        }
 
-
+                    }else if (opcaoEscolhida == 4){
+                        if (crudAlbunsDeMusica.getListaDeMusicas().isEmpty()){
+                            System.out.println("Não tenho musicas cadastradas. Por favor cadastre uma música!");
+                        }else {
+                            crudAlbunsDeMusica.listarMusicas();
+                            crudAlbunsDeMusica.removerAlbumDeMusicas(listaAlbumDeMusicas);
+                        }
+                    }else if (opcaoEscolhida == 5){
+                        if (crudAlbunsDeMusica.getListaDeMusicas().isEmpty()){
+                            System.out.println("Não tenho musicas cadastradas. Por favor cadastre uma música!");
+                        }else {
+                            crudAlbunsDeMusica.listarMusicas();
+                            dinheiroEmCaixaDaEmpresa = crudAlbunsDeMusica.vendaMusica(listaAlbumDeMusicas, dinheiroEmCaixaDaEmpresa);
+                            System.out.println("Dinheiro disponível em caixa após a venda: " + dinheiroEmCaixaDaEmpresa);
+                        }
+                    }else if (opcaoEscolhida == 6){
+                        valida = false;
                     }
-
-
                 }while (valida);
                 valida = true;
 
             }else if (opcaoEscolhida == 5) {
+                //Menu de Opções Briquedos
                 do{
+                    opcaoEscolhida = crudBrinquedos.menuDeBrinquedos(opcaoEscolhida);
+                    if (opcaoEscolhida == 1){
+                        if (crudBrinquedos.getListaDeBrinquedos().isEmpty()){
+                            System.out.println("Não tenho brinquedos cadastrados. Por favor cadastre um brinquedo");
+                        }else {
+                            crudBrinquedos.listaBrinquedos();
+                        }
 
+                    }else if (opcaoEscolhida == 2){
+                        listaBrinquedos = crudBrinquedos.cadastrarBrinquedos(sc, contID);
+                        contID++;
+                        crudBrinquedos.adicionarBrinquedos(listaBrinquedos);
+                    }else if (opcaoEscolhida == 3){
+                        if (crudBrinquedos.getListaDeBrinquedos().isEmpty()){
+                            System.out.println("Não tenho brinquedos cadastrados. Por favor cadastre uma música!");
+                        }else {
+                            crudBrinquedos.listaBrinquedos();
+                            crudBrinquedos.alterarBrinquedo(listaBrinquedos);
+                        }
+                    }else if (opcaoEscolhida == 4){
+                        if (crudBrinquedos.getListaDeBrinquedos().isEmpty()){
+                            System.out.println("Não tenho brinquedos cadastrados. Por favor cadastre uma música!");
+                        }else {
+                            crudBrinquedos.listaBrinquedos();
+                            crudBrinquedos.removerBrinquedo(listaBrinquedos);
+                        }
+                    }else if (opcaoEscolhida == 5){
+                        if (crudAlbunsDeMusica.getListaDeMusicas().isEmpty()){
+                            System.out.println("Não tenho brinquedos cadastrados. Por favor cadastre uma música!");
+                        }else {
+                            crudBrinquedos.listaBrinquedos();
+                            dinheiroEmCaixaDaEmpresa = crudBrinquedos.vendaBrinquedo(listaBrinquedos, dinheiroEmCaixaDaEmpresa);
+                            System.out.println("Dinheiro disponível em caixa após a venda: " + dinheiroEmCaixaDaEmpresa);
+                        }
+                    }
                 }while (valida);
                 valida = true;
             }else if(opcaoEscolhida == 6){
