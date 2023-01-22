@@ -38,6 +38,9 @@ public class Main {
         Filmes listaDeFilmes = new Filmes();
         CrudFilmes crudFilmes = new CrudFilmes();
 
+        AlbunsDeMusica albunsDeMusica = new AlbunsDeMusica();
+        CrudAlbunsDeMusica crudAlbunsDeMusica = new CrudAlbunsDeMusica();
+
         //Valor no estoque
         double dinheiroEmCaixaDaEmpresa = 1000.00;
 
@@ -169,9 +172,14 @@ public class Main {
                             crudFilmes.removerFilmes(listaDeFilmes);
                         }
 
-
                     }else if (opcaoEscolhida == 5){
-
+                        if (crudFilmes.getListaDeFilmes().isEmpty()){
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um jogo!");
+                        }else {
+                            crudFilmes.listarFilmes();
+                            dinheiroEmCaixaDaEmpresa = crudFilmes.vendaFilmes(listaDeFilmes, dinheiroEmCaixaDaEmpresa);
+                            System.out.println("Dinheiro disponível em caixa após a venda: " + dinheiroEmCaixaDaEmpresa);
+                        }
 
                     }else if (opcaoEscolhida == 6){
                         valida = false;
@@ -181,7 +189,16 @@ public class Main {
                 valida = true;
 
             }else if (opcaoEscolhida == 4) {
+                //Menu de opções do Albúns de Músicas com CRUD
+                opcaoEscolhida = crudAlbunsDeMusica.menuDeMusicas(opcaoEscolhida);
                 do{
+                    if (opcaoEscolhida == 1){
+
+                    }else if (opcaoEscolhida == 2){
+
+
+                    }
+
 
                 }while (valida);
                 valida = true;

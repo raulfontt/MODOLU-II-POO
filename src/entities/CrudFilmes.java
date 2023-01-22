@@ -115,12 +115,9 @@ public class CrudFilmes {
             System.out.print("/Genero: " + p.getGenero());
             System.out.println("");
         });
-
-
     }
 
-
-    public void vendaFilmes(Filmes cp, double dinheiroEmCaixaDaEmpresa){
+    public double vendaFilmes(Filmes cp, double dinheiroEmCaixaDaEmpresa){
         System.out.println("Qual o ID do filme você deseja comprar? ");
         Integer idProdutoCompra = sc.nextInt();
 
@@ -129,7 +126,13 @@ public class CrudFilmes {
                 .collect(Collectors.toList())
                 .stream().findFirst().get();
 
-        dinheiroEmCaixaDaEmpresa = dinheiroEmCaixaDaEmpresa + result.getPreco();
+        List<Filmes> lista = listaDeFilmes.stream().filter(listaJogos ->
+                listaJogos.getId().equals(idProdutoCompra)
+        ).collect(Collectors.toList());
 
+        listaDeFilmes.removeAll(lista);
+
+    return dinheiroEmCaixaDaEmpresa + result.getPreco();
     }
+
 }//final
