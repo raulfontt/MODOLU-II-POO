@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CrudFilmes {
     private List<Filmes> listaDeFilmes = new ArrayList<Filmes>();
@@ -42,6 +43,68 @@ public class CrudFilmes {
         return filmes;
     }
 
+    public void adicionarFilmes(Filmes cp) {
+        listaDeFilmes.add(cp);
+    }
+
+    public void alterarFilmes (Filmes cp){
+        boolean valida = true;
+
+        System.out.println("Digite o ID do Filme que deseja alterar: ");//Alteração pelo ID
+        Integer idProdutoAlterar = sc.nextInt();
+
+        Filmes result = listaDeFilmes.stream()
+                .filter(filme -> filme.getId().equals(idProdutoAlterar))
+                .collect(Collectors.toList())
+                .stream().findFirst().get();
+
+        do { //Nova solução exposta em sala, através do função da lista usando Stream() e Filter();
+            System.out.println("O que você deseja alterar no seu Filme: ");
+            System.out.println("01.Nome do Filme / 02. Preço ");
+            Integer opcao = sc.nextInt();
+
+
+            if(opcao == 1){
+                System.out.println("Digite o nome que substituirá o atual:");
+                sc.nextLine();
+                String nomeAtualizado = sc.nextLine();
+                result.setNome(nomeAtualizado);
+                valida = false;
+
+            }else if (opcao == 2) {
+                System.out.println("Digite o valor preço que substituirá o atual:");
+                double valorAtualizado = sc.nextDouble();
+                result.setPreco(valorAtualizado);
+                valida = false;
+            }else {
+                System.out.println("Opção Inválida. Você só pode alterar Nome ou Preço. Digite novamente");
+            }
+        }while (valida);
+    }
+
+    public void removerFilmes(Filmes cp){//Solução de remoção é melhor removendo pelo ID
+        boolean valida =true;
+        do {
+            if(valida){
+                System.out.println("Qual ID do Livro?");
+                System.out.print("ID: ");
+                Integer opcao = sc.nextInt();
+
+                List<Filmes> lista = listaDeFilmes.stream().filter(listaJogos ->
+                        listaJogos.getId().equals(opcao)
+                ).collect(Collectors.toList());
+
+                listaDeFilmes.removeAll(lista);
+                valida = false;
+
+            }else
+                System.out.println("Digite uma oppção valida");
+
+        }while(valida);
+    }
+
+
+
     public void listarFilmes () {
         listaDeFilmes.forEach((p) -> {
             System.out.print("Nome do Jogo: " + p.getNome());
@@ -57,4 +120,16 @@ public class CrudFilmes {
     }
 
 
+    public void vendaFilmes(Filmes cp, double dinheiroEmCaixaDaEmpresa){
+        System.out.println("Qual o ID do filme você deseja comprar? ");
+        Integer idProdutoCompra = sc.nextInt();
+
+        Filmes result = listaDeFilmes.stream()
+                .filter(filme -> filme.getId().equals(idProdutoCompra))
+                .collect(Collectors.toList())
+                .stream().findFirst().get();
+
+        dinheiroEmCaixaDaEmpresa = dinheiroEmCaixaDaEmpresa + result.getPreco();
+
+    }
 }//final

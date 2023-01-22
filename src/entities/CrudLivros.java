@@ -1,5 +1,6 @@
 package entities;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -136,17 +137,22 @@ public class CrudLivros {
         }
     }
 
-    public void vendaLivros(Livros cp, double dinheiroEmCaixaDaEmpresa){
-        System.out.println("Qual o nome do Livro você deseja comprar? ");
-        String nomeProdutoCompra = sc.nextLine();
+    public double vendaLivros(Livros cp, double dinheiroEmCaixaDaEmpresa){
+        System.out.println("Qual o ID do Livro você deseja comprar? ");
+        Integer idProdutoCompra = sc.nextInt();
 
-        for (Livros objetoListaLivro: listaDeLivros) {
-            if (nomeProdutoCompra.equals(objetoListaLivro.getNome())) {
-                listaDeLivros.remove(objetoListaLivro);//retirado do estoque
-                dinheiroEmCaixaDaEmpresa = dinheiroEmCaixaDaEmpresa + objetoListaLivro.getPreco();//valor pago adicionado ao caixa da empresa
-            }
-        }
+        Livros result = listaDeLivros.stream()
+                .filter(filme -> filme.getId().equals(idProdutoCompra))
+                .collect(Collectors.toList())
+                .stream().findFirst().get();
 
+        List<Livros> lista = listaDeLivros.stream().filter(listaJogos ->
+                listaJogos.getId().equals(idProdutoCompra)
+        ).collect(Collectors.toList());
+
+        listaDeLivros.removeAll(lista);
+
+        return dinheiroEmCaixaDaEmpresa + result.getPreco();
 
     }
 

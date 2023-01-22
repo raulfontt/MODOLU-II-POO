@@ -26,6 +26,7 @@ public class Main {
         // Variável para receber dados:
         Scanner sc = new Scanner(System.in);
         boolean valida = true;
+        boolean validaMenuPrincipal = true;
 
         //Declaração das classes
         Livros livrosStore = new Livros();
@@ -46,7 +47,7 @@ public class Main {
 
             if(opcaoEscolhida == 1){//Menu de Livros com o CrudLivros
 
-                do{ //Opções do Menu de Jogos
+                do{ //Opções do Menu de Livros com Crud
                     opcaoEscolhida = crudLivros.menuDeLivros(opcaoEscolhida);
                     if (opcaoEscolhida == 1){
                         if (crudLivros.getListaDeLivros().isEmpty()){
@@ -59,20 +60,36 @@ public class Main {
                         contID++;
                         crudLivros.adicionarLivros(livrosStore);
                     } else if (opcaoEscolhida == 3){
-                        crudLivros.alterarLivros(livrosStore);
-
+                        if (crudLivros.getListaDeLivros().isEmpty()){
+                            System.out.println("Não tenho livros cadastrados. Por favor cadastre um livro!");
+                        }else {
+                            crudLivros.listarLivros();
+                            crudLivros.alterarLivros(livrosStore);
+                        }
                     }else if (opcaoEscolhida == 4) {
-                        crudLivros.removerLivros(livrosStore);
+                        if (crudLivros.getListaDeLivros().isEmpty()){
+                            System.out.println("Não tenho livros cadastrados. Por favor cadastre um livro!");
+                        }else {
+                            crudLivros.listarLivros();
+                            crudLivros.removerLivros(livrosStore);
+                        }
 
                     }else if (opcaoEscolhida == 5){
-                        crudLivros.listarLivros();
-                        crudLivros.vendaLivros(livrosStore, dinheiroEmCaixaDaEmpresa);
+                        if (crudLivros.getListaDeLivros().isEmpty()){
+                            System.out.println("Não tenho livros cadastrados. Por favor cadastre um livro!");
+                        }else {
+                            crudLivros.listarLivros();
+                            dinheiroEmCaixaDaEmpresa = crudLivros.vendaLivros(livrosStore, dinheiroEmCaixaDaEmpresa);
+                            System.out.println("Dinheiro disponível em caixa após a venda: "+ dinheiroEmCaixaDaEmpresa);
+                        }
+
                     }else if(opcaoEscolhida == 6){
                         valida = false;
                     }else{
                         System.out.println("Digite um valor válido");
                     }
                 }while(valida);
+                valida = true;
 
                 //Menu de Jogos com o CRUD
             }else if (opcaoEscolhida == 2) {
@@ -80,7 +97,7 @@ public class Main {
                     opcaoEscolhida = crudJogos.menuDeJogos(opcaoEscolhida);
                     if (opcaoEscolhida == 1){
                         if (crudJogos.getListaDeJogos().isEmpty()){
-                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um livro!");
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um jogo!");
                         }else {
                             crudJogos.listarJogos();
                         }
@@ -90,19 +107,36 @@ public class Main {
                         contID++;
                         crudJogos.adicionarJogos(listaDeJogos);
                     }else if (opcaoEscolhida == 3){
-                        crudJogos.alterarJogos(listaDeJogos);
+                        if (crudJogos.getListaDeJogos().isEmpty()){
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um jogo!");
+                        }else {
+                            crudJogos.listarJogos();
+                            crudJogos.alterarJogos(listaDeJogos);
+                        }
 
                     }else if (opcaoEscolhida == 4){
-                        crudJogos.removerJogos(listaDeJogos);
+                        if (crudJogos.getListaDeJogos().isEmpty()){
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um jogo!");
+                        }else {
+                            crudJogos.listarJogos();
+                            crudJogos.removerJogos(listaDeJogos);
+                        }
 
                     }else if (opcaoEscolhida == 5){
-                        crudJogos.listarJogos();
-                        crudJogos.vendaJogos(listaDeJogos, dinheiroEmCaixaDaEmpresa);
+                        if (crudJogos.getListaDeJogos().isEmpty()){
+                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um jogo!");
+                        }else {
+                            crudJogos.listarJogos();
+                            dinheiroEmCaixaDaEmpresa = crudJogos.vendaJogos(listaDeJogos, dinheiroEmCaixaDaEmpresa);
+                            System.out.println("Dinheiro disponível em caixa após a venda: " + dinheiroEmCaixaDaEmpresa);
+                        }
+
                     }else if (opcaoEscolhida == 6){
                         valida = false;
                     }else
                         System.out.println("Digite um valor válido!");
                 }while (valida);
+                valida = true;
 
             }else if (opcaoEscolhida == 3) {
                 //Menu de Filmes com o CRUD
@@ -111,31 +145,58 @@ public class Main {
 
                     if (opcaoEscolhida == 1){
                         if (crudFilmes.getListaDeFilmes().isEmpty()){
-                            System.out.println("Não tenho jogos cadastrados. Por favor cadastre um livro!");
+                            System.out.println("Não tenho filmes cadastrados. Por favor cadastre um filme!");
                         }else {
                             crudFilmes.listarFilmes();
                         }
+                    }else if (opcaoEscolhida == 2){
+                        listaDeFilmes = crudFilmes.cadastrarFilme(sc, contID);
+                        contID++;
+                        crudFilmes.adicionarFilmes(listaDeFilmes);
+
+                    }else if (opcaoEscolhida == 3){
+                        if (crudFilmes.getListaDeFilmes().isEmpty()){
+                            System.out.println("Não tenho filmes cadastrados. Por favor cadastre um filme!");
+                        }else {
+                            crudFilmes.listarFilmes();
+                            crudFilmes.alterarFilmes(listaDeFilmes);
+                        }
+                    }else if (opcaoEscolhida == 4){
+                        if (crudFilmes.getListaDeFilmes().isEmpty()){
+                            System.out.println("Não tenho filmes cadastrados. Por favor cadastre um filme!");
+                        }else {
+                            crudFilmes.listarFilmes();
+                            crudFilmes.removerFilmes(listaDeFilmes);
+                        }
+
+
+                    }else if (opcaoEscolhida == 5){
+
+
+                    }else if (opcaoEscolhida == 6){
+                        valida = false;
                     }
 
-
-
                 }while (valida);
+                valida = true;
 
             }else if (opcaoEscolhida == 4) {
                 do{
 
                 }while (valida);
+                valida = true;
 
             }else if (opcaoEscolhida == 5) {
                 do{
 
                 }while (valida);
+                valida = true;
             }else if(opcaoEscolhida == 6){
-                valida = false;
+                validaMenuPrincipal = false;
             }else
                 System.out.println("Digite uma das opções do Menu!");
 
-        }while(valida);
+        }while(validaMenuPrincipal);
 
         System.out.println("Obrigado por nos visitar. Volte sempre!");
 

@@ -85,10 +85,11 @@ public class CrudJogos {
 
     public void alterarJogos (Jogos cp){
         boolean valida = true;
-        System.out.println("Digite o nome do Livro que deseja alterar dados:");//Escolhi fazer a busca da alteração apenas por nome.
-        String nomeProdutoAlterar = sc.nextLine();
+        listarJogos();
+        System.out.println("Digite o ID do jogo que deseja alterar: ");//Alteração pelo ID
+        Integer idProdutoAlterar = sc.nextInt();
 
-        do {
+        do { //1ª Solução encontrada. Na sessão de Filmes, utilizei uma segunda forma.
             System.out.println("O que você deseja alterar no seu Jogo: ");
             System.out.println("01.Nome do Jogo / 02. Preço ");
             Integer opcao = sc.nextInt();
@@ -99,8 +100,8 @@ public class CrudJogos {
                 sc.nextLine();
                 String nomeAtualizado = sc.nextLine();
                 for (Jogos objetoListaJogo : listaDeJogos) {
-                    if (nomeProdutoAlterar.equals(objetoListaJogo.getNome())) {
-                        objetoListaJogo.setNome(nomeAtualizado);//alterado preço do produto
+                    if (idProdutoAlterar.equals(objetoListaJogo.getId())) {
+                        objetoListaJogo.setNome(nomeAtualizado);//alterado nome do produto
                         System.out.println(objetoListaJogo.getNome());
                     }
                 }
@@ -110,7 +111,7 @@ public class CrudJogos {
                 System.out.println("Digite o valor preço que substituirá o atual:");
                 double valorAtualizado = sc.nextDouble();
                 for (Jogos objetoListaJogo : listaDeJogos) {
-                    if (nomeProdutoAlterar.equals(objetoListaJogo.getNome())) {
+                    if (idProdutoAlterar.equals(objetoListaJogo.getId())) {
                         objetoListaJogo.setPreco(valorAtualizado);//alterado preço do produto
                         System.out.println(objetoListaJogo.getPreco());
                     }
@@ -123,16 +124,22 @@ public class CrudJogos {
         }while (valida);
     }
 
-    public void vendaJogos(Jogos cp, double dinheiroEmCaixaDaEmpresa){
-        System.out.println("Qual o nome do Livro você deseja comprar? ");
-        String nomeProdutoCompra = sc.nextLine();
+    public double vendaJogos(Jogos cp, double dinheiroEmCaixaDaEmpresa){
+        System.out.println("Qual o ID do Jogo você deseja comprar? ");
+        Integer idProdutoCompra = sc.nextInt();
 
-        for (Jogos objetoListaJogo: listaDeJogos) {
-            if (nomeProdutoCompra.equals(objetoListaJogo.getNome())) {
-                listaDeJogos.remove(objetoListaJogo);//retirado do estoque
-                dinheiroEmCaixaDaEmpresa = dinheiroEmCaixaDaEmpresa + objetoListaJogo.getPreco();//valor pago adicionado ao caixa da empresa
-            }
-        }
+        Jogos result = listaDeJogos.stream()
+                .filter(filme -> filme.getId().equals(idProdutoCompra))
+                .collect(Collectors.toList())
+                .stream().findFirst().get();
+
+        List<Jogos> lista = listaDeJogos.stream().filter(listaJogos ->
+                listaJogos.getId().equals(idProdutoCompra)
+        ).collect(Collectors.toList());
+
+        listaDeJogos.removeAll(lista);
+
+        return dinheiroEmCaixaDaEmpresa + result.getPreco();
     }
 
     public void listarJogos (){
@@ -146,7 +153,5 @@ public class CrudJogos {
             System.out.println("");
         } );
     }
-
-
 
 }
